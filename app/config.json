@@ -1,0 +1,11 @@
+{
+	"host": "localhost",
+	"port": 3306,
+	"user": "appuser",
+	"password": "Password1",
+	"database": "app",
+	"timezone": "Z",
+	"ssl": {
+		"ca": "rds-ca-2019-root.pem"
+	}
+}

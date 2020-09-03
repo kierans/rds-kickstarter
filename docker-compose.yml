@@ -1,0 +1,19 @@
+version: "3.3"
+
+services:
+  mysql:
+    # We align the version of MySQL to the version that is used in RDS.
+    image: "percona/percona-server:8.0.16"
+    container_name: "rds-mysql-local"
+    environment:
+      MYSQL_ROOT_PASSWORD: "Welcome123"
+    ports:
+      - "3306:3306"
+
+# We need an external network so that the Flyway Docker image can connect to the network
+# and find the MySQL container to migrate it.
+# See `migrate.sh` for more details
+networks:
+  default:
+    external:
+      name: rds-mysql-local-network

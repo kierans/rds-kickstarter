@@ -1,0 +1,11 @@
+{
+	"host": "app-test.c4a4n76djf9b.ap-southeast-2.rds.amazonaws.com",
+	"port": 3306,
+	"user": "appuser",
+	"password": "AQICAHjlyq5kDpqvArdEQa1kt/FXxe9TVyUnTagOd6NtcicFngEtoRbDCjkaRXjNeI/dr7XxAAAAdzB1BgkqhkiG9w0BBwagaDBmAgEAMGEGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMk2mnHce6wEFTIumkAgEQgDR3Ye5tTYU/KW+yruLZc4TzGL4GLezsvNLW3n2BB0bdxMO7c4UBD/ZJB22WDxOb4AGOdRC3",
+	"database": "app",
+	"timezone": "Z",
+	"ssl": {
+		"ca": "rds-ca-2019-root.pem"
+	}
+}
