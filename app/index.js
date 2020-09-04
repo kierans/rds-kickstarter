@@ -15,12 +15,10 @@ const port = process.env.PORT || 3000;
 AWS.config.update({ region: "ap-southeast-2" });
 const kms = new AWS.KMS();
 
-let connection;
-
 (async function() {
 	const config = await loadConfig();
 
-	connection = await mysql.createConnection(config);
+	const connection = await mysql.createConnection(config);
 
 	app.get("/customers", async (req, res) => {
 		console.log("Listing customers");
@@ -38,8 +36,8 @@ let connection;
 
 		try {
 			await connection.execute(
-					"UPDATE customer SET name = ?, address = ? WHERE id = ?",
-					[details.name, details.address, id]
+				"UPDATE customer SET name = ?, address = ? WHERE id = ?",
+				[ details.name, details.address, id ]
 			);
 
 			res.send();
