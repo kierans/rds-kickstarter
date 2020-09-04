@@ -63,7 +63,7 @@ The biggest issue with using a RDBMS in a multi environment, multi technology mi
 
 The worst thing you can do is run DDL manually. Inevitable someone will make a mistake and then your environments will be out of sync, with a lot of time spent figuring out why.
 
-In this project we consider 4 environments each with their own instance of MySQL:
+In this project we consider 3 environments each with their own instance of MySQL:
 - `local` - your laptop
 - `test` - a test environment running in RDS
 - `prod` - your production environment running in RDS.
