@@ -61,7 +61,7 @@ When developing applications that require the use of an RDBMS there are several 
 
 The biggest issue with using a RDBMS in a multi environment, multi technology mix is keeping the database schemas in sync with each other and the applications that use the database. For example if you have a `customer` table and a later version of an application tries to save an `address`, if the DB schema change to create the `address` column is not propagated consistently then the application may error, or crash. 
 
-The worst thing you can do is run DDL manually. Inevitable someone will make a mistake and then your environments will be out of sync, with a lot of time spent figuring out why.
+The **worst thing** you can do is run DDL manually. Inevitable someone will make a mistake and then your environments will be out of sync, with a lot of time spent figuring out why, and possibly production support phone calls at 0300.
 
 In this project we consider 3 environments each with their own instance of MySQL:
 - `local` - your laptop
@@ -70,9 +70,9 @@ In this project we consider 3 environments each with their own instance of MySQL
 
 (Note: if you do create multiple RDS instances; don't forget to delete them when you're not using them, or you might have a very expensive AWS bill!!)
 
-The correct way to migrate databases is with a DB migration tool like [Flyway](https://flywaydb.org/) where you create a set of versioned (with your VCS like Mercurial or Git) migrations that are applied in sequence. Flyway records what migrations have been applied in the DB so that it knows what version the DB is at. As the schemas evolve, just like code evolves, the DB is migrated to a version required to match the needs of the application using the DB.
+The correct way to apply changes (migrations) to databases is with a DB migration tool like [Flyway](https://flywaydb.org/) where you create a set of versioned (with your VCS like Mercurial or Git) migrations that are applied in sequence. Flyway records what migrations have been applied in the DB so that it knows what version the DB is at. As the schemas evolve, just like code evolves, the DB is migrated to a version required to match the needs of the application using the DB.
 
-#### How to run migrations
+#### How to apply migrations
 
 The `migrate-local.sh` and `migrate-rds.sh` scripts are designed to run Flyway (in a Docker container) against either a local DB (running in Docker) or an RDS instance. This shows the 12 Factor App principles in action by keeping the schemas environment agnostic (no hardcoded clear text passwords!).
 
@@ -84,7 +84,8 @@ The migrations demonstrate the use of
 
 1. Forcing clients to connect to the DB over SSL. MySQL by default does not force the use of SSL. To be secure, we must force the use of SSL.
 2. The use of [Flyway Placeholders](https://flywaydb.org/documentation/placeholders) to inject [environment specific details](https://12factor.net/config) (such as passwords) into the scripts at migration time. This allows the DDL to be executed against a local database with a dummy password, or a production database where we want to control who has the password.
-3. A table in the `app` DB.
+3. An application user (`appuser`) that has a limited set of permissions in the DB to prevent accidents.
+4. A table in the `app` DB.
 
 Once the migrations are run, a RDBMS tool like [MySQL Workbench](https://www.mysql.com/products/workbench/) or [Data Grip](https://www.jetbrains.com/datagrip/) can be used to connect to the databases either locally or in RDS.
 
