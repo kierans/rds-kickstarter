@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 if [[ $# -lt 1 ]] ; then
-  echo "Usage: $(basename $0) <host> <options>"
-  exit 1
+	echo "Usage: $(basename $0) <host> <options>"
+	exit 1
 fi
 
 if [[ "${FLYWAY_PASSWORD}" = "" ]] ; then
@@ -21,8 +21,8 @@ shift
 echo "Migrating ${HOST}"
 
 docker run \
-  --rm \
-  --network=rds-mysql-local-network \
+	--rm \
+	--network=rds-mysql-local-network \
 	-v $(pwd)/../sql/migrations:/flyway/sql/ \
 	-e RDS_HOST=${HOST} \
 	-e SSL_MODE=${SSL_MODE} \
